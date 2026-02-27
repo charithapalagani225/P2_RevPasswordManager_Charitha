@@ -1,4 +1,4 @@
-package app.repository;
+package com.passwordmanager.app.repository;
 
 import com.passwordmanager.app.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
