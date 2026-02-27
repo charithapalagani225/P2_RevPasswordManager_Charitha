@@ -1,13 +1,13 @@
 package com.revpasswordmanager_p2.app.controller;
 
-import com.passwordmanager.app.dto.ChangePasswordDTO;
-import com.passwordmanager.app.entity.SecurityQuestion;
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.repository.SecurityQuestionRepository;
-import com.passwordmanager.app.service.SecurityAuditService;
-import com.passwordmanager.app.service.UserService;
-import com.passwordmanager.app.service.VerificationService;
-import com.passwordmanager.app.util.AuthUtil;
+import com.revpasswordmanager_p2.app.dto.ChangePasswordDTO;
+import com.revpasswordmanager_p2.app.entity.SecurityQuestion;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.repository.SecurityQuestionRepository;
+import com.revpasswordmanager_p2.app.service.SecurityAuditService;
+import com.revpasswordmanager_p2.app.service.UserService;
+import com.revpasswordmanager_p2.app.service.VerificationService;
+import com.revpasswordmanager_p2.app.util.AuthUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;

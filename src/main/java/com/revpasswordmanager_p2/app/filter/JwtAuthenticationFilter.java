@@ -1,7 +1,7 @@
 package com.revpasswordmanager_p2.app.filter;
 
-import com.passwordmanager.app.config.UserDetailsServiceImpl;
-import com.passwordmanager.app.util.JwtUtil;
+import com.revpasswordmanager_p2.app.config.UserDetailsServiceImpl;
+import com.revpasswordmanager_p2.app.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

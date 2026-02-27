@@ -1,11 +1,11 @@
 package com.revpasswordmanager_p2.app.service;
 
-import com.passwordmanager.app.entity.SecurityQuestion;
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.exception.InvalidCredentialsException;
-import com.passwordmanager.app.exception.ValidationException;
-import com.passwordmanager.app.repository.SecurityQuestionRepository;
-import com.passwordmanager.app.repository.UserRepository;
+import com.revpasswordmanager_p2.app.entity.SecurityQuestion;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.exception.InvalidCredentialsException;
+import com.revpasswordmanager_p2.app.exception.ValidationException;
+import com.revpasswordmanager_p2.app.repository.SecurityQuestionRepository;
+import com.revpasswordmanager_p2.app.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

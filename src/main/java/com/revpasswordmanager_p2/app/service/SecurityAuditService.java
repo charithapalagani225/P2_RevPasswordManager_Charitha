@@ -1,7 +1,7 @@
 package com.revpasswordmanager_p2.app.service;
 
-import com.passwordmanager.app.entity.VaultEntry;
-import com.passwordmanager.app.repository.VaultEntryRepository;
+import com.revpasswordmanager_p2.app.entity.VaultEntry;
+import com.revpasswordmanager_p2.app.repository.VaultEntryRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;

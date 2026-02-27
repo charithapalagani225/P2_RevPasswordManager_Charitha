@@ -1,6 +1,6 @@
 package com.revpasswordmanager_p2.app.dto;
 
-import com.passwordmanager.app.entity.VaultEntry;
+import com.revpasswordmanager_p2.app.entity.VaultEntry;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

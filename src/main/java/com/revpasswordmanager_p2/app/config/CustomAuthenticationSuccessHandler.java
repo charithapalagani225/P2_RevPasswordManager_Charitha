@@ -1,8 +1,8 @@
 package com.revpasswordmanager_p2.app.config;
 
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.repository.UserRepository;
-import com.passwordmanager.app.service.VerificationService;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.repository.UserRepository;
+import com.revpasswordmanager_p2.app.service.VerificationService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

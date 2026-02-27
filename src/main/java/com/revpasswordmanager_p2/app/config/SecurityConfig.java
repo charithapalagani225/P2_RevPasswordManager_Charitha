@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.passwordmanager.app.filter.JwtAuthenticationFilter;
+import com.revpasswordmanager_p2.app.filter.JwtAuthenticationFilter;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;

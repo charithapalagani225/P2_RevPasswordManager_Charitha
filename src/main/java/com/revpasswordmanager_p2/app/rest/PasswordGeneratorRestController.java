@@ -1,8 +1,8 @@
 package com.revpasswordmanager_p2.app.rest;
 
-import com.passwordmanager.app.dto.PasswordGeneratorConfigDTO;
-import com.passwordmanager.app.dto.PasswordResultDTO;
-import com.passwordmanager.app.service.PasswordGeneratorService;
+import com.revpasswordmanager_p2.app.dto.PasswordGeneratorConfigDTO;
+import com.revpasswordmanager_p2.app.dto.PasswordResultDTO;
+import com.revpasswordmanager_p2.app.service.PasswordGeneratorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

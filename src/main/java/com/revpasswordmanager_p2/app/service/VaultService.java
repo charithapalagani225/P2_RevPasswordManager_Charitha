@@ -1,12 +1,12 @@
 package com.revpasswordmanager_p2.app.service;
 
-import com.passwordmanager.app.dto.VaultEntryDTO;
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.entity.VaultEntry;
-import com.passwordmanager.app.mapper.VaultEntryMapper;
-import com.passwordmanager.app.exception.InvalidCredentialsException;
-import com.passwordmanager.app.exception.ResourceNotFoundException;
-import com.passwordmanager.app.repository.VaultEntryRepository;
+import com.revpasswordmanager_p2.app.dto.VaultEntryDTO;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.entity.VaultEntry;
+import com.revpasswordmanager_p2.app.mapper.VaultEntryMapper;
+import com.revpasswordmanager_p2.app.exception.InvalidCredentialsException;
+import com.revpasswordmanager_p2.app.exception.ResourceNotFoundException;
+import com.revpasswordmanager_p2.app.repository.VaultEntryRepository;
 import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

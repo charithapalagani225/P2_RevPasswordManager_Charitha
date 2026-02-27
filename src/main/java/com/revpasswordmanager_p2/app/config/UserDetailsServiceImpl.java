@@ -1,7 +1,7 @@
 package com.revpasswordmanager_p2.app.config;
 
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.repository.UserRepository;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,13 +1,13 @@
 package com.revpasswordmanager_p2.app.controller;
 
-import com.passwordmanager.app.dto.PasswordGeneratorConfigDTO;
-import com.passwordmanager.app.dto.VaultEntryDTO;
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.entity.VaultEntry;
-import com.passwordmanager.app.service.PasswordGeneratorService;
-import com.passwordmanager.app.service.UserService;
-import com.passwordmanager.app.service.VaultService;
-import com.passwordmanager.app.util.AuthUtil;
+import com.revpasswordmanager_p2.app.dto.PasswordGeneratorConfigDTO;
+import com.revpasswordmanager_p2.app.dto.VaultEntryDTO;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.entity.VaultEntry;
+import com.revpasswordmanager_p2.app.service.PasswordGeneratorService;
+import com.revpasswordmanager_p2.app.service.UserService;
+import com.revpasswordmanager_p2.app.service.VaultService;
+import com.revpasswordmanager_p2.app.util.AuthUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -48,10 +48,10 @@ public class PasswordGeneratorController {
     @PostMapping
     public String generate(@ModelAttribute("config") PasswordGeneratorConfigDTO config, Model model) {
         List<String> passwords = generatorService.generate(config);
-        List<com.passwordmanager.app.dto.PasswordResultDTO> results = passwords.stream()
+        List<com.revpasswordmanager_p2.app.dto.PasswordResultDTO> results = passwords.stream()
                 .map(pw -> {
                     int score = generatorService.strengthScore(pw);
-                    return new com.passwordmanager.app.dto.PasswordResultDTO(
+                    return new com.revpasswordmanager_p2.app.dto.PasswordResultDTO(
                             pw,
                             score,
                             generatorService.strengthLabel(score));

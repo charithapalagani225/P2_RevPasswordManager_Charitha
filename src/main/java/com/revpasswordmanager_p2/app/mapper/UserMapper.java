@@ -1,7 +1,7 @@
 package com.revpasswordmanager_p2.app.mapper;
 
-import com.passwordmanager.app.dto.RegisterDTO;
-import com.passwordmanager.app.entity.User;
+import com.revpasswordmanager_p2.app.dto.RegisterDTO;
+import com.revpasswordmanager_p2.app.entity.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

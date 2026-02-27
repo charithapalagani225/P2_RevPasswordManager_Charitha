@@ -1,10 +1,10 @@
 package com.revpasswordmanager_p2.app.rest;
 
-import com.passwordmanager.app.dto.VaultEntryDTO;
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.service.UserService;
-import com.passwordmanager.app.service.VaultService;
-import com.passwordmanager.app.util.AuthUtil;
+import com.revpasswordmanager_p2.app.dto.VaultEntryDTO;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.service.UserService;
+import com.revpasswordmanager_p2.app.service.VaultService;
+import com.revpasswordmanager_p2.app.util.AuthUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

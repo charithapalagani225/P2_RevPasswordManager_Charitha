@@ -1,6 +1,6 @@
 package com.revpasswordmanager_p2.app.service;
 
-import com.passwordmanager.app.dto.PasswordGeneratorConfigDTO;
+import com.revpasswordmanager_p2.app.dto.PasswordGeneratorConfigDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;

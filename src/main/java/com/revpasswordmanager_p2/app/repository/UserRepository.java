@@ -1,6 +1,6 @@
 package com.revpasswordmanager_p2.app.repository;
 
-import com.passwordmanager.app.entity.User;
+import com.revpasswordmanager_p2.app.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

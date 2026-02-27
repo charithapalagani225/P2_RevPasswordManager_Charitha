@@ -1,11 +1,11 @@
 package com.revpasswordmanager_p2.app.controller;
 
-import com.passwordmanager.app.dto.ProfileUpdateDTO;
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.exception.ValidationException;
-import com.passwordmanager.app.service.UserService;
-import com.passwordmanager.app.service.VerificationService;
-import com.passwordmanager.app.util.AuthUtil;
+import com.revpasswordmanager_p2.app.dto.ProfileUpdateDTO;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.exception.ValidationException;
+import com.revpasswordmanager_p2.app.service.UserService;
+import com.revpasswordmanager_p2.app.service.VerificationService;
+import com.revpasswordmanager_p2.app.util.AuthUtil;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

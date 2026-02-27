@@ -1,8 +1,8 @@
 package com.revpasswordmanager_p2.app.service;
 
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.entity.VerificationCode;
-import com.passwordmanager.app.repository.VerificationCodeRepository;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.entity.VerificationCode;
+import com.revpasswordmanager_p2.app.repository.VerificationCodeRepository;
 import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

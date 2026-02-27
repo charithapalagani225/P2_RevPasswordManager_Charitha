@@ -1,12 +1,12 @@
 package com.revpasswordmanager_p2.app.controller;
 
-import com.passwordmanager.app.dto.RegisterDTO;
-import com.passwordmanager.app.dto.SecurityQuestionDTO;
-import com.passwordmanager.app.entity.SecurityQuestion;
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.service.PasswordRecoveryService;
-import com.passwordmanager.app.service.UserService;
-import com.passwordmanager.app.service.VerificationService;
+import com.revpasswordmanager_p2.app.dto.RegisterDTO;
+import com.revpasswordmanager_p2.app.dto.SecurityQuestionDTO;
+import com.revpasswordmanager_p2.app.entity.SecurityQuestion;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.service.PasswordRecoveryService;
+import com.revpasswordmanager_p2.app.service.UserService;
+import com.revpasswordmanager_p2.app.service.VerificationService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;

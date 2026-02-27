@@ -1,6 +1,6 @@
 package com.revpasswordmanager_p2.app.repository;
 
-import com.passwordmanager.app.entity.VerificationCode;
+import com.revpasswordmanager_p2.app.entity.VerificationCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

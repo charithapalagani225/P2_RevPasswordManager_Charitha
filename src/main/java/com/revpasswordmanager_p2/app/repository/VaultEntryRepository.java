@@ -1,6 +1,6 @@
 package com.revpasswordmanager_p2.app.repository;
 
-import com.passwordmanager.app.entity.VaultEntry;
+import com.revpasswordmanager_p2.app.entity.VaultEntry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

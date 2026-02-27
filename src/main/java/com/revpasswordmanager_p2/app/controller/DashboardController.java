@@ -1,10 +1,10 @@
 package com.revpasswordmanager_p2.app.controller;
 
-import com.passwordmanager.app.dto.VaultEntryDTO;
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.service.SecurityAuditService;
-import com.passwordmanager.app.service.VaultService;
-import com.passwordmanager.app.util.AuthUtil;
+import com.revpasswordmanager_p2.app.dto.VaultEntryDTO;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.service.SecurityAuditService;
+import com.revpasswordmanager_p2.app.service.VaultService;
+import com.revpasswordmanager_p2.app.util.AuthUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;

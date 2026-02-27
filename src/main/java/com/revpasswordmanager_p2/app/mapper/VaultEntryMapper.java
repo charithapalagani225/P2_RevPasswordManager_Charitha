@@ -1,9 +1,9 @@
 package com.revpasswordmanager_p2.app.mapper;
 
-import com.passwordmanager.app.dto.VaultEntryDTO;
-import com.passwordmanager.app.entity.User;
-import com.passwordmanager.app.entity.VaultEntry;
-import com.passwordmanager.app.service.EncryptionService;
+import com.revpasswordmanager_p2.app.dto.VaultEntryDTO;
+import com.revpasswordmanager_p2.app.entity.User;
+import com.revpasswordmanager_p2.app.entity.VaultEntry;
+import com.revpasswordmanager_p2.app.service.EncryptionService;
 import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
