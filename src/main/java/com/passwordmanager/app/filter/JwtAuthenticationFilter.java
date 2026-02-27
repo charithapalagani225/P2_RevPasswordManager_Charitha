@@ -1,4 +1,4 @@
-package app.filter;
+package com.passwordmanager.app.filter;
 
 import com.passwordmanager.app.config.UserDetailsServiceImpl;
 import com.passwordmanager.app.util.JwtUtil;
