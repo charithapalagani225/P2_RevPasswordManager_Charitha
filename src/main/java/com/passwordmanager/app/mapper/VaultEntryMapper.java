@@ -1,4 +1,4 @@
-package app.mapper;
+package com.passwordmanager.app.mapper;
 
 import com.passwordmanager.app.dto.VaultEntryDTO;
 import com.passwordmanager.app.entity.VaultEntry;
