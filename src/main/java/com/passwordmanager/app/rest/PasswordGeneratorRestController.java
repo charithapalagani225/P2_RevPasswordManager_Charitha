@@ -1,4 +1,4 @@
-package app.rest;
+package com.passwordmanager.app.rest;
 
 import com.passwordmanager.app.dto.PasswordGeneratorConfigDTO;
 import com.passwordmanager.app.dto.PasswordResultDTO;

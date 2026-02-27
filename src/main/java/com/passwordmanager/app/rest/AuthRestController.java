@@ -1,4 +1,4 @@
-package app.rest;
+package com.passwordmanager.app.rest;
 
 import com.passwordmanager.app.dto.LoginDTO;
 import com.passwordmanager.app.dto.RegisterDTO;
