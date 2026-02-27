@@ -1,4 +1,4 @@
-package app.service;
+package com.passwordmanager.app.service;
 
 public interface IEncryptionService {
     String encrypt(String plainText);

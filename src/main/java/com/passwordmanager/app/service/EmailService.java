@@ -1,4 +1,4 @@
-package app.service;
+package com.passwordmanager.app.service;
 
 import jakarta.mail.internet.MimeMessage;
 import org.apache.logging.log4j.LogManager;

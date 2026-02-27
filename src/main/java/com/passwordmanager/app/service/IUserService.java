@@ -1,4 +1,4 @@
-package app.service;
+package com.passwordmanager.app.service;
 
 import com.passwordmanager.app.dto.ChangePasswordDTO;
 import com.passwordmanager.app.dto.ProfileUpdateDTO;
