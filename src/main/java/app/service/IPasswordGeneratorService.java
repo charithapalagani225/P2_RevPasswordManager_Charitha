@@ -1,6 +1,7 @@
-package com.passwordmanager.app.service;
+package app.service;
 
 import com.passwordmanager.app.dto.PasswordGeneratorConfigDTO;
+
 import java.util.List;
 
 public interface IPasswordGeneratorService {

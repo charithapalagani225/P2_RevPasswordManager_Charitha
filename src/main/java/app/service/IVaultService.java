@@ -1,8 +1,9 @@
-package com.passwordmanager.app.service;
+package app.service;
 
 import com.passwordmanager.app.dto.VaultEntryDTO;
 import com.passwordmanager.app.entity.User;
 import com.passwordmanager.app.entity.VaultEntry;
+
 import java.util.List;
 
 public interface IVaultService {

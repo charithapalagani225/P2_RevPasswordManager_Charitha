@@ -1,9 +1,10 @@
-package com.passwordmanager.app.service;
+package app.service;
 
 import com.passwordmanager.app.dto.ChangePasswordDTO;
 import com.passwordmanager.app.dto.ProfileUpdateDTO;
 import com.passwordmanager.app.dto.RegisterDTO;
 import com.passwordmanager.app.entity.User;
+
 import java.util.Optional;
 
 public interface IUserService {

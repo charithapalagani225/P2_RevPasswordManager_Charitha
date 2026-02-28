@@ -1,8 +1,9 @@
-package com.passwordmanager.app.service;
+package app.service;
 
 import com.passwordmanager.app.dto.ChangePasswordDTO;
 import com.passwordmanager.app.dto.ProfileUpdateDTO;
 import com.passwordmanager.app.dto.RegisterDTO;
+import com.passwordmanager.app.entity.SecurityQuestion;
 import com.passwordmanager.app.entity.User;
 import com.passwordmanager.app.exception.InvalidCredentialsException;
 import com.passwordmanager.app.exception.ResourceNotFoundException;
@@ -12,12 +13,11 @@ import com.passwordmanager.app.repository.IUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.List;
-import java.util.stream.Collectors;
-import com.passwordmanager.app.entity.SecurityQuestion;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {

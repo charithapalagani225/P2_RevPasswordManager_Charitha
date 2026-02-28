@@ -1,4 +1,4 @@
-package com.passwordmanager.app.service;
+package app.service;
 
 import com.passwordmanager.app.entity.User;
 import com.passwordmanager.app.entity.VerificationCode;

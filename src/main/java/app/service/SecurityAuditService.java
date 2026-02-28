@@ -1,5 +1,7 @@
-package com.passwordmanager.app.service;
+package app.service;
 
+import com.passwordmanager.app.dto.AuditItem;
+import com.passwordmanager.app.dto.AuditReport;
 import com.passwordmanager.app.entity.VaultEntry;
 import com.passwordmanager.app.repository.IVaultEntryRepository;
 import org.apache.logging.log4j.LogManager;
@@ -12,9 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.passwordmanager.app.dto.AuditItem;
-import com.passwordmanager.app.dto.AuditReport;
 
 @Service
 public class SecurityAuditService implements ISecurityAuditService {
