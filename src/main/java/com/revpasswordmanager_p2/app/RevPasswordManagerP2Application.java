@@ -1,4 +1,4 @@
-package com.revpasswordmanager_p2.app;
+package com.passwordmanager.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

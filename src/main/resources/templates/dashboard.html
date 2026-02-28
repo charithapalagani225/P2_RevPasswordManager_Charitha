@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<title>Dashboard</title>
+<head th:replace="~{layout :: head('Dashboard')}"></head>
+
+<body>
+    <div class="app-wrapper">
+        <div th:replace="~{layout :: sidebar}" th:with="activePage='dashboard'"></div>
+        <div class="main-content">
+            <div th:replace="~{layout :: topbar('Dashboard')}" th:with="user=${user}"></div>
+            <div class="page-body">
+                <div th:replace="~{layout :: flash}"></div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid fade-in">
+                    <div class="stat-card">
+                        <div class="stat-icon purple">🗄️</div>
+                        <div>
+                            <div class="stat-value" th:text="${totalPasswords}">0</div>
+                            <div class="stat-label">Total Passwords</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon red">⚠️</div>
+                        <div>
+                            <div class="stat-value" th:text="${weakCount}">0</div>
+                            <div class="stat-label">Weak Passwords</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon yellow">🔁</div>
+                        <div>
+                            <div class="stat-value" th:text="${reusedCount}">0</div>
+                            <div class="stat-label">Reused Passwords</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">🕐</div>
+                        <div>
+                            <div class="stat-value" th:text="${oldCount}">0</div>
+                            <div class="stat-label">Old Passwords</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alerts -->
+                <div th:if="${weakCount > 0 || reusedCount > 0}" class="alert alert-warning mb-4">
+                    ⚠️ Your vault has security issues.
+                    <a href="/security/audit" style="color:inherit;font-weight:700;">View Security Audit →</a>
+                </div>
+
+                <!-- Recent Passwords -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <div class="card-title">🕐 Recently Added</div>
+                        <a href="/vault" class="btn btn-secondary btn-sm">View All</a>
+                    </div>
+                    <div th:if="${recentEntries.empty}" style="text-align:center;padding:32px;color:var(--text-muted);">
+                        <div style="font-size:40px;margin-bottom:8px;">🔒</div>
+                        <p>No passwords saved yet.</p>
+                        <a href="/vault/add" class="btn btn-primary btn-sm mt-2">Add First Password</a>
+                    </div>
+                    <div class="table-wrapper" th:unless="${recentEntries.empty}">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Category</th>
+                                    <th>Username</th>
+                                    <th>Added</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="entry : ${recentEntries}">
+                                    <td>
+                                        <div style="display:flex;align-items:center;gap:10px;">
+                                            <div class="vault-card-icon" style="width:32px;height:32px;font-size:14px;">
+                                                🔑
+                                            </div>
+                                            <span th:text="${entry.accountName}" class="fw-600">Account</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge badge-purple" th:text="${entry.category}">OTHER</span></td>
+                                    <td class="text-muted" th:text="${entry.accountUsername}"></td>
+                                    <td class="text-muted text-sm" th:text="${entry.createdAt}"></td>
+                                    <td><a th:href="@{/vault/{id}(id=${entry.id})}"
+                                            class="btn btn-secondary btn-sm">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card fade-in mt-4" style="margin-top:16px;">
+                    <div class="card-title mb-4" style="margin-bottom:12px;">⚡ Quick Actions</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                        <a href="/vault/add" class="btn btn-primary">➕ Add Password</a>
+                        <a href="/generator" class="btn btn-secondary">🎲 Generate Password</a>
+                        <a href="/security/audit" class="btn btn-secondary">🛡️ Security Audit</a>
+                        <a href="/vault/favorites" class="btn btn-secondary">⭐ Favorites</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{layout :: scripts}"></div>
+</body>
+
+</html>
