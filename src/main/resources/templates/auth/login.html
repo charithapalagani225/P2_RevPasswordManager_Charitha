@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | RevVault</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+
+<body>
+    <div class="auth-wrapper split-layout">
+        <div class="auth-left">
+            <div class="left-content">
+                <div class="auth-logo" style="align-items: flex-start; text-align: left; margin-bottom: 24px;">
+                    <div class="logo-icon"
+                        style="background:transparent;box-shadow:none; width: 64px; height: 64px; justify-content: flex-start;">
+                        <img src="/images/logo.png" style="width: 100%; height: 100%; object-fit: contain;"
+                            alt="Logo" />
+                    </div>
+                </div>
+                <h1 class="split-title">Secure Your Digital Life</h1>
+                <p class="split-subtitle">Experience the next generation password manager with robust encryption,
+                    seamless syncing, and an intuitive design.</p>
+                <div class="split-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🛡️</span>
+                        <span>Zero-knowledge encryption</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📱</span>
+                        <span>Sync across all devices</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <span>Lightning fast access</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right" style="flex: 1;">
+            <div class="auth-card fade-in"
+                style="border: none; box-shadow: none; background: transparent; margin: 0 auto; width: 100%;">
+                <div class="auth-logo">
+                    <div class="logo-icon" style="background:transparent;box-shadow:none;">
+                        <img src="/images/logo.png" style="width: 100%; height: 100%; object-fit: contain;"
+                            alt="Logo" />
+                    </div>
+                    <span class="logo-text" style="color: var(--text-primary);">RevVault</span>
+                </div>
+                <h1 class="auth-title" style="color: var(--text-primary);">Welcome back</h1>
+                <p class="auth-subtitle" style="color: var(--text-secondary);">Sign in to your secure vault</p>
+
+                <div th:if="${loginError}" class="alert alert-danger">❌ <span th:text="${loginError}"></span></div>
+                <div th:if="${logoutMsg}" class="alert alert-success">✅ <span th:text="${logoutMsg}"></span></div>
+
+                <form method="post" th:action="@{/login}" autocomplete="on">
+
+                    <div class="form-group">
+                        <label class="form-label" for="usernameOrEmail">Username or Email</label>
+                        <input id="usernameOrEmail" name="usernameOrEmail" type="text" class="form-control"
+                            placeholder="Enter username or email" autofocus autocomplete="username" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="masterPassword">Master Password</label>
+                        <div class="input-group">
+                            <input id="masterPassword" name="masterPassword" type="password" class="form-control"
+                                placeholder="Enter master password" autocomplete="current-password" required />
+                            <button type="button" class="toggle-pw">👁️</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-full mt-4" style="justify-content:center;">
+                        🔓 Sign In
+                    </button>
+                </form>
+
+                <div class="mt-4" style="text-align:center; font-size:13px; color:var(--text-secondary);">
+                    <a href="/recover" style="color:var(--accent-light); text-decoration:none;">Forgot master
+                        password?</a>
+                    &nbsp;·&nbsp;
+                    <a href="/register" style="color:var(--accent-light); text-decoration:none;">Create account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.toggle-pw').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = document.getElementById('masterPassword');
+                input.type = input.type === 'password' ? 'text' : 'password';
+                btn.textContent = input.type === 'password' ? '👁️' : '🙈';
+            });
+        });
+    </script>
+</body>
+
+</html>

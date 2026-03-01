@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout :: head('Security Questions')}"></head>
+
+<body>
+    <div class="app-wrapper">
+        <div th:replace="~{layout :: sidebar}" th:with="activePage='questions'"></div>
+        <div class="main-content">
+            <div th:replace="~{layout :: topbar('❓ Security Questions')}" th:with="user=${user}"></div>
+            <div class="page-body">
+                <div th:replace="~{layout :: flash}"></div>
+
+                <div style="max-width: 100%;" class="fade-in">
+                    <div class="alert alert-info mb-4" style="margin-bottom:16px;">
+                        🔒 Security questions are used to recover your account if you forget your master password.
+                        Minimum 3 questions required.
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title" style="margin-bottom:16px;">❓ Manage Security Questions</div>
+                        <form method="post" th:action="@{/security/questions/update}">
+
+                            <!-- Existing Questions -->
+                            <div th:each="q, stat : ${questions}">
+                                <div
+                                    style="background:var(--bg-secondary);border-radius:8px;padding:14px;margin-bottom:10px;">
+                                    <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:8px;"
+                                        th:text="'QUESTION ' + (${stat.index + 1})">QUESTION 1</div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="questionTexts" required>
+                                            <option value="" disabled th:selected="${q.questionText == null}">Select a
+                                                security question</option>
+                                            <option value="What is your mother's maiden name?"
+                                                th:selected="${q.questionText == 'What is your mother''s maiden name?'}">
+                                                What is your mother's maiden name?</option>
+                                            <option value="What is your pet's name?"
+                                                th:selected="${q.questionText == 'What is your pet''s name?'}">What is
+                                                your pet's name?</option>
+                                            <option value="What is your first school's name?"
+                                                th:selected="${q.questionText == 'What is your first school''s name?'}">
+                                                What is your first school's name?</option>
+                                            <option value="What is your favourite color?"
+                                                th:selected="${q.questionText == 'What is your favourite color?'}">What
+                                                is your favourite color?</option>
+                                            <option value="What is your favourite food?"
+                                                th:selected="${q.questionText == 'What is your favourite food?'}">What
+                                                is your favourite food?</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <input type="password" class="form-control" name="answers"
+                                            placeholder="Answer (leave blank to keep current — NOT supported, re-enter required)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- New Question Row if fewer than 5 -->
+                            <div th:if="${questions.size() < 5}">
+                                <div th:each="i : ${#numbers.sequence(questions.size() + 1, 5)}"
+                                    style="background:var(--bg-secondary);border-radius:8px;padding:14px;margin-bottom:10px;opacity:0.7;">
+                                    <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:8px;"
+                                        th:text="'QUESTION ' + ${i}">QUESTION</div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="questionTexts">
+                                            <option value="" disabled selected>Select a security question (optional)
+                                            </option>
+                                            <option value="What is your mother's maiden name?">What is your mother's
+                                                maiden name?</option>
+                                            <option value="What is your pet's name?">What is your pet's name?</option>
+                                            <option value="What is your first school's name?">What is your first
+                                                school's name?</option>
+                                            <option value="What is your favourite color?">What is your favourite color?
+                                            </option>
+                                            <option value="What is your favourite food?">What is your favourite food?
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <input type="password" class="form-control" name="answers"
+                                            placeholder="Answer" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top:16px;">
+                                <label class="form-label">Master Password (required to save changes)</label>
+                                <div class="input-group">
+                                    <input type="password" id="mp" name="masterPassword" class="form-control"
+                                        placeholder="Confirm with master password" required />
+                                    <button type="button" class="toggle-pw" onclick="togglePw('mp',this)">👁️</button>
+                                </div>
+                            </div>
+
+                            <div style="display:flex;gap:10px;margin-top:16px;">
+                                <button type="submit" class="btn btn-primary">💾 Update Questions</button>
+                                <a href="/dashboard" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function togglePw(id, btn) {
+            const i = document.getElementById(id);
+            i.type = i.type === 'password' ? 'text' : 'password';
+            btn.textContent = i.type === 'password' ? '👁️' : '🙈';
+        }
+    </script>
+    <div th:replace="~{layout :: scripts}"></div>
+</body>
+
+</html>

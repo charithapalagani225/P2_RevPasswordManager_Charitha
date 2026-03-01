@@ -1,4 +1,4 @@
-package app.util;
+package com.passwordmanager.app.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

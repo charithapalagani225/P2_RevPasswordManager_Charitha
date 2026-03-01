@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RevVault | Secure Password Manager</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <style>
+        body {
+            background: var(--bg-secondary);
+            /* Pure White for welcome page */
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: "Inter", sans-serif;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Animations ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: smoothReveal 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes smoothReveal {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Content Section ===== */
+        .content-main {
+            background: transparent;
+        }
+
+        /* Split-screen Hero */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 85vh;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            padding-right: 40px;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.05;
+            letter-spacing: -2.5px;
+            margin-bottom: 24px;
+        }
+
+        .hero-title span {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-hero-primary {
+            background: var(--text-primary);
+            /* Slate 900 */
+            color: white;
+            padding: 16px 36px;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid var(--text-primary);
+        }
+
+        .btn-hero-primary:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-hero-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 16px 36px;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid var(--border-strong);
+        }
+
+        .btn-hero-secondary:hover {
+            background: var(--bg-hover);
+            border-color: var(--text-primary);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInSlideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeInSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.5s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.8s;
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .visual-box {
+            width: 100%;
+            aspect-ratio: 1;
+            max-width: 500px;
+            background: var(--bg-primary);
+            /* Slate 50 */
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            color: var(--accent);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .visual-box::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .features-section {
+            background: var(--bg-primary);
+            /* Switch to Slate 50 for contrast */
+            padding: 100px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            /* Pure White */
+            padding: 40px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 24px;
+            color: var(--accent);
+            display: inline-block;
+            padding: 16px;
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .content-section {
+            padding: 120px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-row {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .content-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .content-text {
+            flex: 1;
+        }
+
+        .content-text h2 {
+            font-size: 36px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .content-text p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .content-image {
+            flex: 1;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-inset);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+            color: var(--accent);
+            border: none;
+        }
+
+        /* ===== Card Popup ===== */
+        .feature-card {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            position: relative;
+            /* For absolutely positioning the popup */
+        }
+
+        .card-popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            background: var(--bg-secondary);
+            width: 110%;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border);
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            z-index: 100;
+            pointer-events: none;
+            /* Let hovers pass through to the card */
+        }
+
+        .feature-card:hover .card-popup {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%);
+            pointer-events: auto;
+            /* Allow interaction once visible */
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 80px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-title {
+                font-size: 44px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-row {
+                flex-direction: column !important;
+                text-align: center;
+                gap: 30px;
+            }
+        }
+
+        .landing-footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 80px;
+            background: var(--bg-secondary);
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar"
+        style="position: sticky; top: 0; background: var(--bg-secondary); border-bottom: none; z-index: 100; box-shadow: var(--shadow-sm);">
+        <div class="sidebar-brand" style="padding: 0; border: none;">
+            <div class="brand-icon" style="background:transparent;box-shadow:none;">
+                <img src="/images/logo.png" style="width: 100%; height: 100%; object-fit: contain;"
+                    alt="RevVault Logo" />
+            </div>
+            <span class="brand-name">RevVault</span>
+        </div>
+        <div class="topbar-meta">
+            <a href="/login" class="btn btn-secondary">Sign In</a>
+            <a href="/register" class="btn btn-primary">Create Account</a>
+        </div>
+    </header>
+
+    <main>
+        <div id="welcome-content" class="content-main">
+            <!-- Split Screen Hero -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title fade-in delay-1">Secure Your Digital Identity <br><span>Without
+                            Compromise.</span></h1>
+                    <p class="hero-subtitle fade-in delay-2">RevVault is the elegant, enterprise-grade password manager
+                        designed for clarity and absolute privacy.</p>
+                    <div class="hero-actions fade-in delay-3">
+                        <a href="/register" class="btn-hero-primary">Start for Free</a>
+                        <a href="/login" class="btn-hero-secondary">Sign In</a>
+                    </div>
+                </div>
+                <div class="hero-visual fade-in delay-2">
+                    <div class="visual-box">
+                        🛡️
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="features-section">
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <h2 style="font-size: 36px; color: var(--text-primary); letter-spacing: -1.5px; font-weight: 800;">
+                        Powerful Features</h2>
+                    <p style="color: var(--text-secondary); font-size: 18px; margin-top: 16px;">Enterprise-grade
+                        security made simple. Click any feature to explore.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card fade-in" style="animation-delay: 0.1s;">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Bank-Grade Security</h3>
+                        <p>Your data is encrypted locally on your device using industry-standard AES-256 before it ever
+                            reaches our servers.</p>
+                        <div class="card-popup">
+                            <div class="feature-icon"
+                                style="font-size: 40px; margin-bottom: 20px; background: var(--bg-primary);">🛡️</div>
+                            <h3
+                                style="font-size: 24px; margin-bottom: 12px; font-weight: 800; color: var(--text-primary);">
+                                Bank-Grade Security</h3>
+                            <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">Your data is
+                                encrypted locally on your device using industry-standard AES-256 before it ever reaches
+                                our servers.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card fade-in" style="animation-delay: 0.2s;">
+                        <div class="feature-icon">✨</div>
+                        <h3>Elegant Interface</h3>
+                        <p>Designed with a pristine, professional aesthetic to make managing your digital security
+                            simple and stress-free.</p>
+                        <div class="card-popup">
+                            <div class="feature-icon"
+                                style="font-size: 40px; margin-bottom: 20px; background: var(--bg-primary);">✨</div>
+                            <h3
+                                style="font-size: 24px; margin-bottom: 12px; font-weight: 800; color: var(--text-primary);">
+                                Elegant Interface</h3>
+                            <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">Designed with a
+                                pristine, professional aesthetic to make managing your digital security simple and
+                                stress-free.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card fade-in" style="animation-delay: 0.3s;">
+                        <div class="feature-icon">🎲</div>
+                        <h3>Password Generator</h3>
+                        <p>Create mathematically strong, unique passwords with a single click using our advanced
+                            customization tools.</p>
+                        <div class="card-popup">
+                            <div class="feature-icon"
+                                style="font-size: 40px; margin-bottom: 20px; background: var(--bg-primary);">🎲</div>
+                            <h3
+                                style="font-size: 24px; margin-bottom: 12px; font-weight: 800; color: var(--text-primary);">
+                                Password Generator</h3>
+                            <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">Create
+                                mathematically strong, unique passwords with a single click using our advanced
+                                customization tools.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div style="text-align: center; margin-top: 60px; margin-bottom: 20px;">
+                <h2 style="font-size: 32px; color: var(--text-primary); letter-spacing: -1px;">How It Works</h2>
+                <p style="color: var(--text-secondary); font-size: 18px; margin-top: 10px;">Simple, transparent, and
+                    completely private.</p>
+            </div>
+            <section class="content-section">
+                <div class="content-row fade-in">
+                    <div class="content-text">
+                        <h2>Organize Your Digital Life</h2>
+                        <p>RevVault isn't just a place to store passwords; it's a secure digital vault for your entire
+                            online identity. Keep your login credentials, sensitive notes, and security questions neatly
+                            organized and easily accessible.</p>
+                        <p>With our intuitive dashboard, you can instantly find what you need, securely copy passwords
+                            to your clipboard, and identify weak or reused passwords before they become a liability.</p>
+                    </div>
+                    <div class="content-image">🗄️</div>
+                </div>
+
+                <div class="content-row fade-in">
+                    <div class="content-text">
+                        <h2>Zero-Knowledge Architecture</h2>
+                        <p>We believe your data belongs to you. That's why RevVault is built on a strict zero-knowledge
+                            architecture. Your master password is never transmitted to or stored on our servers.</p>
+                        <p>Your vault is encrypted locally on your device using PBKDF2 key derivation and AES-256-GCM
+                            authenticated encryption. This means that even in the unlikely event of a server breach,
+                            your data remains mathematically impossible to access without your master password.</p>
+                    </div>
+                    <div class="content-image">🔐</div>
+                </div>
+
+                <div class="content-row fade-in">
+                    <div class="content-text">
+                        <h2>Advanced Account Protection</h2>
+                        <p>Security is layered. Beyond your master password, RevVault supports comprehensive Two-Factor
+                            Authentication (2FA) via time-based one-time passwords (TOTP).</p>
+                        <p>Pair your account with an authenticator app like Google Authenticator or Authy to ensure that
+                            even if someone learns your master password, they still cannot access your secure vault.</p>
+                    </div>
+                    <div class="content-image">📱</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="landing-footer">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px;">
+            <div style="width: 24px; height: 24px;">
+                <img src="/images/logo.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Logo" />
+            </div>
+            <span style="font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px;">RevVault</span>
+        </div>
+        <p style="font-size: 14px;">&copy; 2026 RevVault Password Manager. All rights reserved.</p>
+        <div class="footer-links"
+            style="margin-top: 24px; display: flex; gap: 24px; justify-content: center; font-size: 14px; font-weight: 500;">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+
+    </footer>
+</body>
+
+</html>

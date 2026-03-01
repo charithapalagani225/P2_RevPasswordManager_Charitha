@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security Questions | RevVault</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-card fade-in" style="max-width:500px;">
+            <div class="auth-logo">
+                <div class="logo-icon" style="background:transparent;box-shadow:none;">
+                    <img src="/images/logo.png" style="width: 100%; height: 100%; object-fit: contain;" alt="Logo" />
+                </div><span class="logo-text">RevVault</span>
+            </div>
+            <h1 class="auth-title">Answer Security Questions</h1>
+            <p class="auth-subtitle">All answers must match to reset your password</p>
+
+            <div th:if="${errorMsg}" class="alert alert-danger">❌ <span th:text="${errorMsg}"></span></div>
+
+            <form method="post" th:action="@{/recover/verify}">
+                <input type="hidden" name="usernameOrEmail" th:value="${usernameOrEmail}" />
+
+                <div th:each="q, stat : ${questions}">
+                    <input type="hidden" name="questionIds" th:value="${q.id}" />
+                    <div class="form-group">
+                        <label class="form-label" th:text="${q.questionText}">Question</label>
+                        <input type="password" name="answers" class="form-control" placeholder="Your answer" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full mt-4" style="justify-content:center;">
+                    ✅ Verify Answers
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
