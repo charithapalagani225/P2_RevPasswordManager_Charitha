@@ -1,4 +1,4 @@
-package app.entity;
+package com.passwordmanager.app.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
