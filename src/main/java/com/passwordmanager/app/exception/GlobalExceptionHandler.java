@@ -1,4 +1,4 @@
-package app.exception;
+package com.passwordmanager.app.exception;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

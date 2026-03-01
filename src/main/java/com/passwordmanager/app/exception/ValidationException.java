@@ -1,4 +1,4 @@
-package app.exception;
+package com.passwordmanager.app.exception;
 
 public class ValidationException extends RuntimeException {
     public ValidationException(String message) {
