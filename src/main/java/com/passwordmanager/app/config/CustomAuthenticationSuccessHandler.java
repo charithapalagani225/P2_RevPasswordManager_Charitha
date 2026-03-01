@@ -1,4 +1,4 @@
-package app.config;
+package com.passwordmanager.app.config;
 
 import com.passwordmanager.app.entity.User;
 import com.passwordmanager.app.repository.IUserRepository;

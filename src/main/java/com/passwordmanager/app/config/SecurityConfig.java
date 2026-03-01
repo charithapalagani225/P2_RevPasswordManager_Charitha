@@ -1,4 +1,4 @@
-package app.config;
+package com.passwordmanager.app.config;
 
 import com.passwordmanager.app.filter.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
