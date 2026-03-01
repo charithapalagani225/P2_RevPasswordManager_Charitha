@@ -1,4 +1,4 @@
-package app.controller;
+package com.passwordmanager.app.controller;
 
 import com.passwordmanager.app.dto.ProfileUpdateDTO;
 import com.passwordmanager.app.entity.User;
