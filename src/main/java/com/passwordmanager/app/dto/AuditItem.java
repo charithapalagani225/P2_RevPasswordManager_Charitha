@@ -1,4 +1,4 @@
-package app.dto;
+package com.passwordmanager.app.dto;
 
 public class AuditItem {
     private Long id;

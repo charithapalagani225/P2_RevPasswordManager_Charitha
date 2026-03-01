@@ -1,4 +1,4 @@
-package app.dto;
+package com.passwordmanager.app.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package app.dto;
+package com.passwordmanager.app.dto;
 
 import com.passwordmanager.app.entity.VaultEntry;
 import jakarta.validation.constraints.NotBlank;
