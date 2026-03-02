@@ -3,7 +3,9 @@ package com.passwordmanager.app.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.passwordmanager.app.dto.LoginDTO;
 import com.passwordmanager.app.dto.RegisterDTO;
+import com.passwordmanager.app.dto.SecurityQuestionDTO;
 import com.passwordmanager.app.entity.User;
+import com.passwordmanager.app.rest.AuthRestController;
 import com.passwordmanager.app.service.UserService;
 import com.passwordmanager.app.util.JwtUtil;
 import org.junit.Before;
@@ -23,12 +25,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 
-import com.passwordmanager.app.dto.SecurityQuestionDTO;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuthRestControllerTest {
