@@ -5,12 +5,13 @@ import com.passwordmanager.app.entity.User;
 import com.passwordmanager.app.entity.VaultEntry;
 import com.passwordmanager.app.exception.ResourceNotFoundException;
 import com.passwordmanager.app.repository.IVaultEntryRepository;
+import com.passwordmanager.app.service.EncryptionService;
+import com.passwordmanager.app.service.VaultService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

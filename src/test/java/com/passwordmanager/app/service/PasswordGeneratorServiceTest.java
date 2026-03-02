@@ -1,6 +1,7 @@
 package com.passwordmanager.app.service;
 
 import com.passwordmanager.app.dto.PasswordGeneratorConfigDTO;
+import com.passwordmanager.app.service.PasswordGeneratorService;
 import org.junit.Before;
 import org.junit.Test;
 

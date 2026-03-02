@@ -4,12 +4,12 @@ import com.passwordmanager.app.dto.ChangePasswordDTO;
 import com.passwordmanager.app.dto.ProfileUpdateDTO;
 import com.passwordmanager.app.dto.RegisterDTO;
 import com.passwordmanager.app.dto.SecurityQuestionDTO;
-import com.passwordmanager.app.entity.SecurityQuestion;
 import com.passwordmanager.app.entity.User;
 import com.passwordmanager.app.exception.InvalidCredentialsException;
 import com.passwordmanager.app.exception.ValidationException;
 import com.passwordmanager.app.repository.ISecurityQuestionRepository;
 import com.passwordmanager.app.repository.IUserRepository;
+import com.passwordmanager.app.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +22,10 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
