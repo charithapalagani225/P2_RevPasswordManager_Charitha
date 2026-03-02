@@ -1,8 +1,8 @@
 package com.passwordmanager.app.service;
 
 import jakarta.mail.internet.MimeMessage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService implements IEmailService {
+    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
-    private static final Logger logger = LogManager.getLogger(EmailService.class);
+
 
     private final JavaMailSender mailSender;
 
