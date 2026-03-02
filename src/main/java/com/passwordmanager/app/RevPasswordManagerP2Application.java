@@ -1,4 +1,4 @@
-package app;
+package com.passwordmanager.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
