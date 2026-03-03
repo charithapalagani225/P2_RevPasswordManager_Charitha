@@ -142,6 +142,9 @@ public class VaultService implements IVaultService {
         return dto;
     }
 
+    private static final java.time.format.DateTimeFormatter FORMATTER = java.time.format.DateTimeFormatter
+            .ofPattern("MMM dd, yyyy HH:mm");
+
     private VaultEntryDTO mapToDto(VaultEntry e) {
         VaultEntryDTO dto = new VaultEntryDTO();
         dto.setId(e.getId());
@@ -151,6 +154,12 @@ public class VaultService implements IVaultService {
         dto.setCategory(e.getCategory());
         dto.setNotes(e.getNotes());
         dto.setFavorite(e.isFavorite());
+        if (e.getCreatedAt() != null) {
+            dto.setCreatedAt(e.getCreatedAt().format(FORMATTER));
+        }
+        if (e.getUpdatedAt() != null) {
+            dto.setUpdatedAt(e.getUpdatedAt().format(FORMATTER));
+        }
         return dto;
     }
 }
