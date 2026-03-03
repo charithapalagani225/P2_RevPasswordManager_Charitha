@@ -18,9 +18,12 @@ import java.util.Optional;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final IUserRepository userRepository;
+    private final com.passwordmanager.app.service.IVerificationService verificationService;
 
-    public CustomAuthenticationSuccessHandler(IUserRepository userRepository) {
+    public CustomAuthenticationSuccessHandler(IUserRepository userRepository,
+            com.passwordmanager.app.service.IVerificationService verificationService) {
         this.userRepository = userRepository;
+        this.verificationService = verificationService;
     }
 
     @Override
@@ -32,6 +35,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         if (optUser.isPresent() && optUser.get().isTotpEnabled()) {
             User user = optUser.get();
+            // Trigger OTP send
+            verificationService.generateAndSendOtp(user, "LOGIN_2FA");
+
             // Store pending userId and clear authentication so user is not fully logged in
             // yet
             HttpSession session = request.getSession(true);
