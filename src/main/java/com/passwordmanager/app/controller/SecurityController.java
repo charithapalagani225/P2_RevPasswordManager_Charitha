@@ -165,6 +165,16 @@ public class SecurityController {
             return "redirect:/security/questions";
         }
 
+        long uniqueQuestionsCount = questionTexts.stream()
+                .filter(text -> text != null && !text.trim().isEmpty())
+                .distinct()
+                .count();
+
+        if (uniqueQuestionsCount < questionTexts.size()) {
+            redirectAttrs.addFlashAttribute("errorMsg", "Duplicate security questions are not allowed");
+            return "redirect:/security/questions";
+        }
+
         sqRepository.deleteByUserId(user.getId());
         List<SecurityQuestion> newQuestions = new ArrayList<>();
         for (int i = 0; i < questionTexts.size(); i++) {

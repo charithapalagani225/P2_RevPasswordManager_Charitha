@@ -184,6 +184,7 @@ public class AuthController {
     public String verifyAnswers(@RequestParam String usernameOrEmail,
             @RequestParam List<Long> questionIds,
             @RequestParam List<String> answers,
+            HttpSession session,
             Model model,
             RedirectAttributes redirectAttrs) {
         try {
@@ -193,12 +194,55 @@ public class AuthController {
                 redirectAttrs.addFlashAttribute("errorMsg", "One or more answers are incorrect");
                 return "redirect:/recover";
             }
+
+            // Answers correct - Check if 2FA (TOTP) is enabled
+            if (user.isTotpEnabled()) {
+                logger.info("2FA enabled for user {}. Sending recovery OTP...", user.getUsername());
+                verificationService.generateAndSendOtp(user, "RECOVERY_2FA");
+                session.setAttribute("pendingRecoveryUser", user.getId());
+                return "redirect:/recover/2fa";
+            }
+
             model.addAttribute("usernameOrEmail", usernameOrEmail);
             return "auth/recover-reset";
         } catch (Exception e) {
             redirectAttrs.addFlashAttribute("errorMsg", e.getMessage());
             return "redirect:/recover";
         }
+    }
+
+    @GetMapping("/recover/2fa")
+    public String recover2faPage(HttpSession session, Model model) {
+        if (session.getAttribute("pendingRecoveryUser") == null) {
+            return "redirect:/recover";
+        }
+        return "auth/recover-2fa";
+    }
+
+    @PostMapping("/recover/2fa")
+    public String doVerifyRecoveryOtp(@RequestParam String otp,
+            HttpSession session,
+            RedirectAttributes redirectAttrs,
+            Model model) {
+        Long userId = (Long) session.getAttribute("pendingRecoveryUser");
+        if (userId == null) {
+            return "redirect:/recover";
+        }
+        User user = userService.findById(userId).orElse(null);
+        if (user == null) {
+            return "redirect:/recover";
+        }
+
+        boolean isValid = verificationService.validateCode(user, otp, "RECOVERY_2FA");
+        if (!isValid) {
+            redirectAttrs.addFlashAttribute("errorMsg", "Invalid or expired verification code.");
+            return "redirect:/recover/2fa";
+        }
+
+        // OTP valid - proceed to reset
+        session.removeAttribute("pendingRecoveryUser");
+        model.addAttribute("usernameOrEmail", user.getEmail());
+        return "auth/recover-reset";
     }
 
     @PostMapping("/recover/reset")
