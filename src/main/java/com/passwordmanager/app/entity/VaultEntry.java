@@ -61,6 +61,6 @@ public class VaultEntry {
     private LocalDateTime updatedAt;
 
     public enum Category {
-        SOCIAL_MEDIA, BANKING, EMAIL, SHOPPING, WORK, OTHER
+        SOCIAL_MEDIA, BANKING, EMAIL, SHOPPING, WORK, LOGIN, OTHER
     }
 }
