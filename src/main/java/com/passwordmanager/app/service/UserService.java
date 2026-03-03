@@ -47,6 +47,16 @@ public class UserService implements IUserService {
         if (dto.getSecurityQuestions() == null || dto.getSecurityQuestions().size() < 3) {
             throw new ValidationException("At least 3 security questions are required");
         }
+
+        long uniqueQuestionsCount = dto.getSecurityQuestions().stream()
+                .map(com.passwordmanager.app.dto.SecurityQuestionDTO::getQuestionText)
+                .filter(text -> text != null && !text.trim().isEmpty())
+                .distinct()
+                .count();
+
+        if (uniqueQuestionsCount < dto.getSecurityQuestions().size()) {
+            throw new ValidationException("Duplicate security questions are not allowed");
+        }
     }
 
     @Override
