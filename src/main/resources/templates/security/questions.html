@@ -11,7 +11,7 @@
             <div class="page-body">
                 <div th:replace="~{layout :: flash}"></div>
 
-                <div style="max-width: 100%;" class="fade-in">
+                <div style="max-width: 700px; margin: 0 auto;" class="fade-in">
                     <div class="alert alert-info mb-4" style="margin-bottom:16px;">
                         🔒 Security questions are used to recover your account if you forget your master password.
                         Minimum 3 questions required.
@@ -29,23 +29,40 @@
                                         th:text="'QUESTION ' + (${stat.index + 1})">QUESTION 1</div>
                                     <div class="form-group">
                                         <select class="form-control" name="questionTexts" required>
-                                            <option value="" disabled th:selected="${q.questionText == null}">Select a
-                                                security question</option>
+                                            <option value="" disabled
+                                                th:selected="${q.questionText == null || q.questionText == ''}"
+                                                th:text="'Select question ' + (${stat.index + 1})">Select question 1
+                                            </option>
                                             <option value="What is your mother's maiden name?"
                                                 th:selected="${q.questionText == 'What is your mother''s maiden name?'}">
                                                 What is your mother's maiden name?</option>
                                             <option value="What is your pet's name?"
-                                                th:selected="${q.questionText == 'What is your pet''s name?'}">What is
-                                                your pet's name?</option>
+                                                th:selected="${q.questionText == 'What is your pet''s name?'}">What
+                                                is your pet's name?</option>
                                             <option value="What is your first school's name?"
                                                 th:selected="${q.questionText == 'What is your first school''s name?'}">
                                                 What is your first school's name?</option>
                                             <option value="What is your favourite color?"
-                                                th:selected="${q.questionText == 'What is your favourite color?'}">What
-                                                is your favourite color?</option>
+                                                th:selected="${q.questionText == 'What is your favourite color?'}">
+                                                What is your favourite color?</option>
                                             <option value="What is your favourite food?"
-                                                th:selected="${q.questionText == 'What is your favourite food?'}">What
-                                                is your favourite food?</option>
+                                                th:selected="${q.questionText == 'What is your favourite food?'}">
+                                                What is your favourite food?</option>
+                                            <option value="In what city were you born?"
+                                                th:selected="${q.questionText == 'In what city were you born?'}">In
+                                                what city were you born?</option>
+                                            <option value="What is the name of your favorite childhood friend?"
+                                                th:selected="${q.questionText == 'What is the name of your favorite childhood friend?'}">
+                                                What is the name of your favorite childhood friend?</option>
+                                            <option value="What is your favorite movie?"
+                                                th:selected="${q.questionText == 'What is your favorite movie?'}">
+                                                What is your favorite movie?</option>
+                                            <option value="What was the make and model of your first car?"
+                                                th:selected="${q.questionText == 'What was the make and model of your first car?'}">
+                                                What was the make and model of your first car?</option>
+                                            <option value="What is your father's middle name?"
+                                                th:selected="${q.questionText == 'What is your father''s middle name?'}">
+                                                What is your father's middle name?</option>
                                         </select>
                                     </div>
                                     <div class="form-group" style="margin-bottom:0;">
@@ -63,17 +80,29 @@
                                         th:text="'QUESTION ' + ${i}">QUESTION</div>
                                     <div class="form-group">
                                         <select class="form-control" name="questionTexts">
-                                            <option value="" disabled selected>Select a security question (optional)
-                                            </option>
+                                            <option value="" disabled selected
+                                                th:text="'Select question ' + ${i} + ' (optional)'">Select question
+                                                (optional)</option>
                                             <option value="What is your mother's maiden name?">What is your mother's
                                                 maiden name?</option>
-                                            <option value="What is your pet's name?">What is your pet's name?</option>
+                                            <option value="What is your pet's name?">What is your pet's name?
+                                            </option>
                                             <option value="What is your first school's name?">What is your first
                                                 school's name?</option>
-                                            <option value="What is your favourite color?">What is your favourite color?
+                                            <option value="What is your favourite color?">What is your favourite
+                                                color?</option>
+                                            <option value="What is your favourite food?">What is your favourite
+                                                food?</option>
+                                            <option value="In what city were you born?">In what city were you born?
                                             </option>
-                                            <option value="What is your favourite food?">What is your favourite food?
-                                            </option>
+                                            <option value="What is the name of your favorite childhood friend?">What
+                                                is the name of your favorite childhood friend?</option>
+                                            <option value="What is your favorite movie?">What is your favorite
+                                                movie?</option>
+                                            <option value="What was the make and model of your first car?">What was
+                                                the make and model of your first car?</option>
+                                            <option value="What is your father's middle name?">What is your father's
+                                                middle name?</option>
                                         </select>
                                     </div>
                                     <div class="form-group" style="margin-bottom:0;">
@@ -93,7 +122,9 @@
                             </div>
 
                             <div style="display:flex;gap:10px;margin-top:16px;">
-                                <button type="submit" class="btn btn-primary">💾 Update Questions</button>
+                                <button type="submit" class="btn btn-primary"
+                                    onclick="return validateSecurityQuestions(this.form)">💾 Update
+                                    Questions</button>
                                 <a href="/dashboard" class="btn btn-secondary">Cancel</a>
                             </div>
                         </form>
@@ -108,6 +139,49 @@
             i.type = i.type === 'password' ? 'text' : 'password';
             btn.textContent = i.type === 'password' ? '👁️' : '🙈';
         }
+        function validateSecurityQuestions(form) {
+            const selects = form.querySelectorAll('select[name="questionTexts"]');
+            const values = new Set();
+            for (let select of selects) {
+                if (select.value && select.value !== "") {
+                    if (values.has(select.value)) {
+                        alert("Please select different security questions. Duplicate questions are not allowed.");
+                        return false;
+                    }
+                    values.add(select.value);
+                }
+            }
+            if (values.size < 3) {
+                alert("Please select at least 3 distinct security questions.");
+                return false;
+            }
+            return true;
+        }
+
+        function updateSelectOptions() {
+            const selects = document.querySelectorAll('select[name="questionTexts"]');
+            const selectedValues = Array.from(selects).map(s => s.value).filter(v => v !== "");
+
+            selects.forEach(select => {
+                const options = select.querySelectorAll('option');
+                options.forEach(opt => {
+                    if (opt.value === "") return;
+                    if (selectedValues.includes(opt.value) && select.value !== opt.value) {
+                        opt.disabled = true;
+                        opt.style.display = 'none';
+                    } else {
+                        opt.disabled = false;
+                        opt.style.display = '';
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const selects = document.querySelectorAll('select[name="questionTexts"]');
+            selects.forEach(s => s.addEventListener('change', updateSelectOptions));
+            updateSelectOptions();
+        });
     </script>
     <div th:replace="~{layout :: scripts}"></div>
 </body>

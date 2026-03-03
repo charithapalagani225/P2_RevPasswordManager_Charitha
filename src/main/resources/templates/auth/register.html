@@ -137,17 +137,28 @@
                                         1</label>
                                     <select class="form-control"
                                         th:field="*{securityQuestions[__${stat.index}__].questionText}" required>
-                                        <option value="" disabled selected>Select a security question</option>
+                                        <option value="" disabled
+                                            th:selected="*{securityQuestions[__${stat.index}__].questionText == null || securityQuestions[__${stat.index}__].questionText == ''}"
+                                            th:text="'Select question ' + (${stat.index + 1})">Select question 1
+                                        </option>
                                         <option value="What is your mother's maiden name?">What is your mother's maiden
                                             name?</option>
                                         <option value="What is your pet's name?">What is your pet's name?</option>
                                         <option value="What is your first school's name?">What is your first school's
-                                            name?
-                                        </option>
+                                            name?</option>
                                         <option value="What is your favourite color?">What is your favourite color?
                                         </option>
                                         <option value="What is your favourite food?">What is your favourite food?
                                         </option>
+                                        <option value="In what city were you born?">In what city were you born?</option>
+                                        <option value="What is the name of your favorite childhood friend?">What is the
+                                            name of your favorite childhood friend?</option>
+                                        <option value="What is your favorite movie?">What is your favorite movie?
+                                        </option>
+                                        <option value="What was the make and model of your first car?">What was the make
+                                            and model of your first car?</option>
+                                        <option value="What is your father's middle name?">What is your father's middle
+                                            name?</option>
                                     </select>
                                 </div>
                                 <div class="form-group" style="margin-bottom:0;">
@@ -160,7 +171,8 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-full" style="justify-content:center;">
+                    <button type="submit" class="btn btn-primary w-full" style="justify-content:center;"
+                        onclick="return validateSecurityQuestions(this.form)">
                         🚀 Create Account
                     </button>
                 </form>
@@ -197,6 +209,49 @@
             label.textContent = labels[score];
             label.className = 'strength-label ' + classes[score];
         }
+        function validateSecurityQuestions(form) {
+            const selects = form.querySelectorAll('select[name^="securityQuestions"]');
+            const values = new Set();
+            for (let select of selects) {
+                if (select.value && select.value !== "") {
+                    if (values.has(select.value)) {
+                        alert("Please select different security questions. Duplicate questions are not allowed.");
+                        return false;
+                    }
+                    values.add(select.value);
+                }
+            }
+            if (values.size < 3) {
+                alert("Please select at least 3 distinct security questions.");
+                return false;
+            }
+            return true;
+        }
+
+        function updateSelectOptions() {
+            const selects = document.querySelectorAll('select[name^="securityQuestions"]');
+            const selectedValues = Array.from(selects).map(s => s.value).filter(v => v !== "");
+
+            selects.forEach(select => {
+                const options = select.querySelectorAll('option');
+                options.forEach(opt => {
+                    if (opt.value === "") return;
+                    if (selectedValues.includes(opt.value) && select.value !== opt.value) {
+                        opt.disabled = true;
+                        opt.style.display = 'none';
+                    } else {
+                        opt.disabled = false;
+                        opt.style.display = '';
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const selects = document.querySelectorAll('select[name^="securityQuestions"]');
+            selects.forEach(s => s.addEventListener('change', updateSelectOptions));
+            updateSelectOptions();
+        });
     </script>
 </body>
 
