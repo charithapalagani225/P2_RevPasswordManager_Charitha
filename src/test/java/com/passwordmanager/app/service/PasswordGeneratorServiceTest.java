@@ -1,19 +1,18 @@
 package com.passwordmanager.app.service;
 
 import com.passwordmanager.app.dto.PasswordGeneratorConfigDTO;
-import com.passwordmanager.app.service.PasswordGeneratorService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PasswordGeneratorServiceTest {
 
     private PasswordGeneratorService service;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         service = new PasswordGeneratorService();
     }
@@ -43,7 +42,7 @@ public class PasswordGeneratorServiceTest {
         config.setIncludeSymbols(false);
         boolean hasUpper = service.generate(config).stream()
                 .anyMatch(pw -> pw.chars().anyMatch(Character::isUpperCase));
-        assertTrue("At least one generated password should have uppercase", hasUpper);
+        assertTrue(hasUpper, "At least one generated password should have uppercase");
     }
 
     @Test
@@ -52,7 +51,7 @@ public class PasswordGeneratorServiceTest {
         config.setIncludeNumbers(true);
         boolean hasDigit = service.generate(config).stream()
                 .anyMatch(pw -> pw.chars().anyMatch(Character::isDigit));
-        assertTrue("At least one generated password should contain a digit", hasDigit);
+        assertTrue(hasDigit, "At least one generated password should contain a digit");
     }
 
     @Test
@@ -61,7 +60,7 @@ public class PasswordGeneratorServiceTest {
         config.setIncludeSymbols(true);
         boolean hasSymbol = service.generate(config).stream()
                 .anyMatch(pw -> pw.chars().anyMatch(c -> !Character.isLetterOrDigit(c)));
-        assertTrue("At least one generated password should contain a special character", hasSymbol);
+        assertTrue(hasSymbol, "At least one generated password should contain a special character");
     }
 
     @Test
@@ -69,9 +68,9 @@ public class PasswordGeneratorServiceTest {
         PasswordGeneratorConfigDTO config = defaultConfig(30, 20);
         config.setExcludeSimilar(true);
         for (String pw : service.generate(config)) {
-            assertFalse("Password should not contain 'O'", pw.contains("O"));
-            assertFalse("Password should not contain 'I'", pw.contains("I"));
-            assertFalse("Password should not contain 'l'", pw.contains("l"));
+            assertFalse(pw.contains("O"), "Password should not contain 'O'");
+            assertFalse(pw.contains("I"), "Password should not contain 'I'");
+            assertFalse(pw.contains("l"), "Password should not contain 'l'");
         }
     }
 
@@ -80,7 +79,7 @@ public class PasswordGeneratorServiceTest {
         PasswordGeneratorConfigDTO config = defaultConfig(16, 5);
         List<String> passwords = service.generate(config);
         long distinct = passwords.stream().distinct().count();
-        assertTrue("Generated passwords should be mostly unique", distinct >= 4);
+        assertTrue(distinct >= 4, "Generated passwords should be mostly unique");
     }
 
     @Test
@@ -88,7 +87,7 @@ public class PasswordGeneratorServiceTest {
         PasswordGeneratorConfigDTO config = defaultConfig(4, 1); // below minimum of 8
         List<String> passwords = service.generate(config);
         assertEquals(1, passwords.size());
-        assertTrue("Length should be at least 8 when 4 is requested", passwords.get(0).length() >= 8);
+        assertTrue(passwords.get(0).length() >= 8, "Length should be at least 8 when 4 is requested");
     }
 
     // ===== strengthScore() tests =====
@@ -106,14 +105,14 @@ public class PasswordGeneratorServiceTest {
     @Test
     public void strengthScore_veryShortSimple_returnsLowScore() {
         int score = service.strengthScore("abc");
-        assertTrue("Very short simple password should score <= 1", score <= 1);
+        assertTrue(score <= 1, "Very short simple password should score <= 1");
     }
 
     @Test
     public void strengthScore_strongPassword_returnsHighScore() {
         // Has uppercase, lowercase, digit, special, length >= 12
         int score = service.strengthScore("Tr0ub4dor&3!Extra");
-        assertTrue("Strong password should score >= 3", score >= 3);
+        assertTrue(score >= 3, "Strong password should score >= 3");
     }
 
     @Test

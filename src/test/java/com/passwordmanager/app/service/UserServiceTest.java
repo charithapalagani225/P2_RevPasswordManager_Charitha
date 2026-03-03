@@ -9,25 +9,24 @@ import com.passwordmanager.app.exception.InvalidCredentialsException;
 import com.passwordmanager.app.exception.ValidationException;
 import com.passwordmanager.app.repository.ISecurityQuestionRepository;
 import com.passwordmanager.app.repository.IUserRepository;
-import com.passwordmanager.app.service.UserService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     @Mock
@@ -39,7 +38,7 @@ public class UserServiceTest {
     private PasswordEncoder passwordEncoder;
     private UserService userService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         passwordEncoder = new BCryptPasswordEncoder();
         userService = new UserService(IUserRepository, sqRepository, passwordEncoder);
@@ -62,34 +61,34 @@ public class UserServiceTest {
         verify(sqRepository).saveAll(argThat(list -> list.iterator().hasNext()));
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void register_passwordMismatch_throwsValidationException() {
         RegisterDTO dto = buildRegisterDTO("bob", "bob@example.com", "Password1!", "Different!");
-        userService.register(dto);
+        assertThrows(ValidationException.class, () -> userService.register(dto));
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void register_duplicateUsername_throwsValidationException() {
         RegisterDTO dto = buildRegisterDTO("alice", "new@example.com", "Pass1234!", "Pass1234!");
         when(IUserRepository.existsByUsername("alice")).thenReturn(true);
-        userService.register(dto);
+        assertThrows(ValidationException.class, () -> userService.register(dto));
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void register_duplicateEmail_throwsValidationException() {
         RegisterDTO dto = buildRegisterDTO("newuser", "alice@example.com", "Pass1234!", "Pass1234!");
         when(IUserRepository.existsByUsername("newuser")).thenReturn(false);
         when(IUserRepository.existsByEmail("alice@example.com")).thenReturn(true);
-        userService.register(dto);
+        assertThrows(ValidationException.class, () -> userService.register(dto));
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void register_insufficientSecurityQuestions_throwsValidationException() {
         RegisterDTO dto = buildRegisterDTO("carol", "carol@test.com", "Pass1234!", "Pass1234!");
         dto.getSecurityQuestions().remove(2); // Only 2 questions
         when(IUserRepository.existsByUsername(any())).thenReturn(false);
         when(IUserRepository.existsByEmail(any())).thenReturn(false);
-        userService.register(dto);
+        assertThrows(ValidationException.class, () -> userService.register(dto));
     }
 
     // ===== verifyMasterPassword() tests =====
@@ -124,7 +123,7 @@ public class UserServiceTest {
         assertEquals("same@example.com", updated.getEmail());
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void updateProfile_emailTaken_throwsValidationException() {
         User user = User.builder().id(1L).email("alice@example.com").build();
         when(IUserRepository.findById(1L)).thenReturn(Optional.of(user));
@@ -132,7 +131,7 @@ public class UserServiceTest {
 
         ProfileUpdateDTO dto = new ProfileUpdateDTO();
         dto.setEmail("taken@example.com");
-        userService.updateProfile(1L, dto);
+        assertThrows(ValidationException.class, () -> userService.updateProfile(1L, dto));
     }
 
     // ===== changeMasterPassword() tests =====
@@ -153,7 +152,7 @@ public class UserServiceTest {
         assertTrue(passwordEncoder.matches("NewPass2@", user.getMasterPasswordHash()));
     }
 
-    @Test(expected = InvalidCredentialsException.class)
+    @Test
     public void changeMasterPassword_wrongCurrent_throwsException() {
         User user = User.builder().id(1L)
                 .masterPasswordHash(passwordEncoder.encode("OldPass1!")).build();
@@ -164,10 +163,10 @@ public class UserServiceTest {
         dto.setNewPassword("NewPass2@");
         dto.setConfirmNewPassword("NewPass2@");
 
-        userService.changeMasterPassword(1L, dto);
+        assertThrows(InvalidCredentialsException.class, () -> userService.changeMasterPassword(1L, dto));
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void changeMasterPassword_mismatchNew_throwsValidationException() {
         User user = User.builder().id(1L)
                 .masterPasswordHash(passwordEncoder.encode("OldPass1!")).build();
@@ -178,7 +177,7 @@ public class UserServiceTest {
         dto.setNewPassword("NewPass2@");
         dto.setConfirmNewPassword("Different!!");
 
-        userService.changeMasterPassword(1L, dto);
+        assertThrows(ValidationException.class, () -> userService.changeMasterPassword(1L, dto));
     }
 
     // ===== toggle2FA() tests =====

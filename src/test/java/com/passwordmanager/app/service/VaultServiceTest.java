@@ -5,24 +5,22 @@ import com.passwordmanager.app.entity.User;
 import com.passwordmanager.app.entity.VaultEntry;
 import com.passwordmanager.app.exception.ResourceNotFoundException;
 import com.passwordmanager.app.repository.IVaultEntryRepository;
-import com.passwordmanager.app.service.EncryptionService;
-import com.passwordmanager.app.service.VaultService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class VaultServiceTest {
 
     @Mock
@@ -32,7 +30,7 @@ public class VaultServiceTest {
     private VaultService vaultService;
     private User testUser;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         vaultService = new VaultService(vaultRepo, encryptionService);
         testUser = User.builder().id(1L).username("alice").build();
@@ -72,10 +70,10 @@ public class VaultServiceTest {
         assertEquals("NEWENC", existing.getEncryptedPassword());
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void updateEntry_notFound_throwsException() {
         when(vaultRepo.findByIdAndUserId(999L, 1L)).thenReturn(Optional.empty());
-        vaultService.updateEntry(1L, 999L, new VaultEntryDTO());
+        assertThrows(ResourceNotFoundException.class, () -> vaultService.updateEntry(1L, 999L, new VaultEntryDTO()));
     }
 
     // ===== deleteEntry() =====
@@ -89,10 +87,10 @@ public class VaultServiceTest {
         verify(vaultRepo).delete(entry);
     }
 
-    @Test(expected = ResourceNotFoundException.class)
+    @Test
     public void deleteEntry_notFound_throwsException() {
         when(vaultRepo.findByIdAndUserId(999L, 1L)).thenReturn(Optional.empty());
-        vaultService.deleteEntry(1L, 999L);
+        assertThrows(ResourceNotFoundException.class, () -> vaultService.deleteEntry(1L, 999L));
     }
 
     // ===== toggleFavorite() =====
